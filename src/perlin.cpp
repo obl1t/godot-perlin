@@ -16,10 +16,8 @@ Perlin::~Perlin()
 
 void Perlin::_bind_methods() {
     ClassDB::bind_method(D_METHOD("generate_random_vectors", "seed", "offset"), &Perlin::generate_random_vectors);
-    // ClassDB::bind_method(D_METHOD("interpolate", "a", "b", "w"), &Perlin::interpolate);
     ClassDB::bind_method(D_METHOD("generate_perlin_noise", "x", "y"), &Perlin::generate_perlin_noise);
     ClassDB::bind_method(D_METHOD("generate_fractal_noise", "x", "y", "octaves", "persistence", "frequency"), &Perlin::generate_fractal_noise);
-    // ClassDB::bind_method(D_METHOD("get_dot_product", "a", "x", "y"), &Perlin::get_dot_product);
 }
 // Creates the random vectors for the perlin noise.
 void Perlin::generate_random_vectors(int seed, Vector2 offset){
@@ -53,10 +51,6 @@ float Perlin::interpolate(float a, float b, float w){
 
 // Gets the dot product between a vector and a point.
 float Perlin::get_dot_product(Vector2* a, float x, float y){
-    // UtilityFunctions::print(*a);
-    // UtilityFunctions::print(x);
-    // UtilityFunctions::print(y);
-
     return a->x * x + a->y * y;
 }
 
@@ -91,17 +85,10 @@ float Perlin::generate_perlin_noise(float x, float y){
     float dot_bottom_left = get_dot_product(bottom_left, x_frac, y_frac - 1);
     float dot_bottom_right = get_dot_product(bottom_right, x_frac - 1, y_frac - 1);
 
-    // UtilityFunctions::print("dot_top_left: " + String::num(dot_top_left));
-    // UtilityFunctions::print("dot_top_right: " + String::num(dot_top_right));
-    // UtilityFunctions::print("dot_bottom_left: " + String::num(dot_bottom_left));
-    // UtilityFunctions::print("dot_bottom_right: " + String::num(dot_bottom_right));
-
 
 
     float x_interpolate_1 = interpolate(dot_top_left, dot_top_right, x_frac);
-    //UtilityFunctions::print("x_interpolate_1: " + String::num(x_interpolate_1));
     float x_interpolate_2 = interpolate(dot_bottom_left, dot_bottom_right, x_frac);
-    //UtilityFunctions::print("x_interpolate_2: " + String::num(x_interpolate_2));
 
     float value = interpolate(x_interpolate_1, x_interpolate_2, y_frac);
     return value;

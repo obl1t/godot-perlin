@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk2nqotob0uii"]
+
+[ext_resource type="Script" path="res://PerlinTester.gd" id="1_amsgb"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_amsgb")
+
+[node name="Perlin" type="Perlin" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1196.0
+offset_bottom = 794.0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 836.0
+offset_top = 632.0
+offset_right = 1198.0
+offset_bottom = 788.0

@@ -37,7 +37,7 @@ class Perlin : public Node{
     public:
         Perlin();
         ~Perlin();
-        void generate_random_vectors(int seed, Vector2 offset);
+        void generate_random_vectors(int seed);
         float interpolate(float a, float b, float w);
         float generate_perlin_noise(float x, float y);
         float generate_fractal_noise(float x, float y, int octaves = 3, float persistence = 0.2, float frequency = 1.0);

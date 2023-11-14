@@ -15,12 +15,12 @@ Perlin::~Perlin()
 
 
 void Perlin::_bind_methods() {
-    ClassDB::bind_method(D_METHOD("generate_random_vectors", "seed", "offset"), &Perlin::generate_random_vectors);
+    ClassDB::bind_method(D_METHOD("generate_random_vectors", "seed"), &Perlin::generate_random_vectors);
     ClassDB::bind_method(D_METHOD("generate_perlin_noise", "x", "y"), &Perlin::generate_perlin_noise);
     ClassDB::bind_method(D_METHOD("generate_fractal_noise", "x", "y", "octaves", "persistence", "frequency"), &Perlin::generate_fractal_noise);
 }
 // Creates the random vectors for the perlin noise.
-void Perlin::generate_random_vectors(int seed, Vector2 offset){
+void Perlin::generate_random_vectors(int seed){
     // Create a 2D array of Vector2s.
     Vector2*** noise = new Vector2**[32];
     for(int i = 0; i < 32; i++){
@@ -28,7 +28,7 @@ void Perlin::generate_random_vectors(int seed, Vector2 offset){
     }
 
     // Initialize all Vector2s to random values.
-    srand(seed + offset.x * 37 + offset.y * 17);
+    srand(seed);
     for(int i = 0; i < 32; i++){
         for(int j = 0; j < 32; j++){
             float x = ((float) rand() / RAND_MAX) - 0.5;
@@ -57,7 +57,7 @@ float Perlin::get_dot_product(Vector2* a, float x, float y){
 // Generates perlin noise at a given point.
 float Perlin::generate_perlin_noise(float x, float y){
     if(!has_random_vectors){
-        generate_random_vectors(0, Vector2(0, 0));
+        generate_random_vectors(0);
         has_random_vectors = true;
     }
     // Get the integer coordinates of the point.
@@ -94,6 +94,7 @@ float Perlin::generate_perlin_noise(float x, float y){
     return value;
 }
 
+// Generates fractal noise at a given point by layering perlins.
 float Perlin::generate_fractal_noise(float x, float y, int octaves, float persistence, float frequency){
     float total = 0;
     float amplitude = 1;

@@ -36,9 +36,6 @@ func _ready():
 	image.save_png("res://Images/image.png")
 	var texture = ImageTexture.new()
 	texture.create_from_image(image)
-
-	# Assign the texture to a Sprite or TextureRect to visualize it
-	get_node("TextureRect").texture = texture
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
